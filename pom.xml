@@ -401,8 +401,16 @@
 	</build>
 
 	<repositories>
-		
-		
+
+
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>RXLOGIX-thirdparty</id>
+			<name>RXLogix Thirdparty Repository</name>
+			<url>https://nexus-repo-eng.rxlogix.com/repository/thirdparty</url>
+		</repository>
+	</distributionManagement>
 
 </project>

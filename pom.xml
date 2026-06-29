@@ -17,6 +17,7 @@
 
 	<properties>
 
+		<spring>5.3.39-rxlogix-6</spring>
 		<scala>2.11.7</scala>
 		<xmlbeam>1.4.24</xmlbeam>
 		<java-module-name>spring.data.commons</java-module-name>

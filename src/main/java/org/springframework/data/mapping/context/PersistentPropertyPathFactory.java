@@ -34,7 +34,7 @@ import org.springframework.data.util.StreamUtils;
 import org.springframework.data.util.TypeInformation;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
-import org.springframework.util.ConcurrentReferenceHashMap;
+import org.springframework.util.ConcurrentLruCache;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -49,7 +49,8 @@ class PersistentPropertyPathFactory<E extends PersistentEntity<?, P>, P extends 
 
 	private static final Predicate<PersistentProperty<? extends PersistentProperty<?>>> IS_ENTITY = PersistentProperty::isEntity;
 
-	private final Map<TypeAndPath, PersistentPropertyPath<P>> propertyPaths = new ConcurrentReferenceHashMap<>();
+	private final ConcurrentLruCache<TypeAndPath, PersistentPropertyPath<P>> propertyPaths = new ConcurrentLruCache<>(512,
+			it -> createPersistentPropertyPath(it.getPath(), it.getType()));
 	private final MappingContext<E, P> context;
 
 	public PersistentPropertyPathFactory(MappingContext<E, P> context) {
@@ -167,9 +168,7 @@ class PersistentPropertyPathFactory<E extends PersistentEntity<?, P>, P extends 
 	}
 
 	private PersistentPropertyPath<P> getPersistentPropertyPath(TypeInformation<?> type, String propertyPath) {
-
-		return propertyPaths.computeIfAbsent(TypeAndPath.of(type, propertyPath),
-				it -> createPersistentPropertyPath(it.getPath(), it.getType()));
+		return propertyPaths.get(TypeAndPath.of(type, propertyPath));
 	}
 
 	/**

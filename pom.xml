@@ -5,7 +5,7 @@
 
 	<groupId>org.springframework.data</groupId>
 	<artifactId>spring-data-commons</artifactId>
-	<version>2.7.18</version>
+	<version>2.7.18-rxlogix-1</version>
 
 	<name>Spring Data Core</name>
 
@@ -17,6 +17,7 @@
 
 	<properties>
 
+		<spring>5.3.39-rxlogix-6</spring>
 		<scala>2.11.7</scala>
 		<xmlbeam>1.4.24</xmlbeam>
 		<java-module-name>spring.data.commons</java-module-name>
@@ -400,8 +401,16 @@
 	</build>
 
 	<repositories>
-		
-		
+
+
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>RXLOGIX-thirdparty</id>
+			<name>RXLogix Thirdparty Repository</name>
+			<url>https://nexus-repo-eng.rxlogix.com/repository/thirdparty</url>
+		</repository>
+	</distributionManagement>
 
 </project>
